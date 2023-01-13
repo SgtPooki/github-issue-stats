@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#
+# Usage: $0 user/repo
+
+set -euf -o pipefail
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. "${DIR}/functions.sh"
+
+repo=$1
+
+fetch "${repo}" "issues/events"

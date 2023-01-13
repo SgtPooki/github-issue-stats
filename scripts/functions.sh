@@ -20,6 +20,7 @@ function fetch { # path query
   # with `jq -s add` we add all of them into a single array
   json=$(gh api -X GET ${ghApi} -f state='all' --paginate | jq -s add)
 
-  echo "Saving JSON to ${path}/$type.json"
-  echo "${json}" > "${path}/$type.json"
+  filename="$(sed 's,/,-,g' <<< $type)"
+  echo "Saving JSON to ${path}/$filename.json"
+  echo "${json}" > "${path}/$filename.json"
 }
