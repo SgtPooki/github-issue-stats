@@ -4,7 +4,7 @@
 
 set -euf -o pipefail
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-. "${DIR}/functions.sh"
+. "${DIR}/functions-new.sh"
 
 repo=$1
-fetch "repos/${repo}/issues" "state=all&per_page=100"
+fetch "${repo}"

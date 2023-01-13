@@ -1,3 +1,4 @@
 Gemfile.lock
 repos/**/page*.json
 .DS_Store
+.env
