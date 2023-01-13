@@ -8,17 +8,18 @@ api=https://api.github.com
 #
 function fetch { # path query
   ownerAndRepo=$1
+  type=$2
   path="repos/$1"
-  ghApi="/$path/issues"
+  ghApi="/$path/$type"
 
   echo "Ensuring $path exists"
   mkdir -p $path
 
-  echo "Getting all issues using 'gh api ${ghApi} --paginate'"
+  echo "Getting all $type using 'gh api ${ghApi} --paginate'"
   # gh api --paginate returns multiple arrays of length 100 until all issues are retrieved
   # with `jq -s add` we add all of them into a single array
   json=$(gh api -X GET ${ghApi} -f state='all' --paginate | jq -s add)
 
-  echo "Saving issue JSON to ${path}/issues.json"
-  echo "${json}" > "${path}/issues.json"
+  echo "Saving JSON to ${path}/$type.json"
+  echo "${json}" > "${path}/$type.json"
 }

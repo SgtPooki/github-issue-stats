@@ -12,6 +12,10 @@ class Issue
     @closed_at ||= @hash['closed_at'].nil? ? nil : Time.parse(@hash['closed_at'])
   end
 
+  def updated_at
+    @updated_at ||= @hash['updated_at'].nil? ? nil : Time.parse(@hash['updated_at'])
+  end
+
   def number
     @hash['number']
   end
