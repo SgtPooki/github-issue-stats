@@ -7,25 +7,18 @@ api=https://api.github.com
 # When all resources have been fetched, combine them all into one file.
 #
 function fetch { # path query
-  path=$1
-  query=$2
-  baseUrl="${api}/${path}?${query}"
+  ownerAndRepo=$1
+  path="repos/$1"
+  ghApi="/$path/issues"
 
-  mkdir -p "${path}"
+  echo "Ensuring $path exists"
+  mkdir -p $path
 
-  page=1
-  while :
-  do
-    url="${baseUrl}&page=${page}"
-    echo "${url}"
-    json=$(curl "${GITHUB_AUTH}" --fail --silent --show-error "${url}" | jq . -c --raw-output)
-    if [ "${json}" == "[]" ]; then
-      break
-    fi
-    echo "${json}" > "${path}/page-$(printf "%03d" "${page}").json"
-    page=$((page+1))
-  done
+  echo "Getting all issues using 'gh api ${ghApi} --paginate'"
+  # gh api --paginate returns multiple arrays of length 100 until all issues are retrieved
+  # with `jq -s add` we add all of them into a single array
+  json=$(gh api -X GET ${ghApi} -f state='all' --paginate | jq -s add)
 
-  # Combine them all into one file for easier processing
-  find "${path}" -type f | xargs jq -s add > "${path}.json"
+  echo "Saving issue JSON to ${path}/issues.json"
+  echo "${json}" > "${path}/issues.json"
 }
