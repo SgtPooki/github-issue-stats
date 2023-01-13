@@ -15,7 +15,6 @@ echo -e "\$DIR: $DIR \n"
 # ipfs-shipyard repos
 ./$DIR/fetch-issues ipfs-shipyard/i18n
 ./$DIR/fetch-issues ipfs-shipyard/ipfs-css
-./$DIR/fetch-issues ipfs-shipyard/ipfs-share-files
 ./$DIR/fetch-issues ipfs-shipyard/ipfs-ui-style-guide
 ./$DIR/fetch-issues ipfs-shipyard/pinning-service-compliance
 ./$DIR/fetch-issues ipfs-shipyard/js-pinning-service-http-client
