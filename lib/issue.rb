@@ -5,11 +5,11 @@ class Issue
   end
 
   def created_at
-    @created_at ||= Time.parse(@hash['createdAt'])
+    @created_at ||= Time.parse(@hash['created_at'])
   end
 
   def closed_at
-    @closed_at ||= @hash['closedAt'].nil? ? nil : Time.parse(@hash['closedAt'])
+    @closed_at ||= @hash['closed_at'].nil? ? nil : Time.parse(@hash['closed_at'])
   end
 
   def number

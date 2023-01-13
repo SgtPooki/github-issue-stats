@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+set -euf -o pipefail
+DIR="$( dirname "${BASH_SOURCE[0]}" )"
+echo -e "\$DIR: $DIR \n"
+
+# ipfs repos
+./$DIR/fetch-issues ipfs/ipfs-gui
+./$DIR/fetch-issues ipfs/ipfs-desktop
+./$DIR/fetch-issues ipfs/ipfs-webui
+./$DIR/fetch-issues ipfs/ipfs-companion
+./$DIR/fetch-issues ipfs/public-gateway-checker
+./$DIR/fetch-issues ipfs/ipld-explorer-components
+
+# ipfs-shipyard repos
+./$DIR/fetch-issues ipfs-shipyard/i18n
+./$DIR/fetch-issues ipfs-shipyard/ipfs-css
+./$DIR/fetch-issues ipfs-shipyard/ipfs-share-files
+./$DIR/fetch-issues ipfs-shipyard/ipfs-ui-style-guide
+./$DIR/fetch-issues ipfs-shipyard/pinning-service-compliance
+./$DIR/fetch-issues ipfs-shipyard/js-pinning-service-http-client
+./$DIR/fetch-issues ipfs-shipyard/ipfs-dag-builder-vis
+
+# ipld repos
+./$DIR/fetch-issues ipld/explore.ipld.io
+
+# multiformats repos
+./$DIR/fetch-issues multiformats/cid-utils-website
+
+mkdir -p repos/teams/ipfs-gui
+jq -s add repos/**/issues.json > repos/teams/ipfs-gui/issues.json
+
+make
+
